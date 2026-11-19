@@ -7,6 +7,9 @@
  * - subtraction: subtract the second number from the first (a - b)
  * - multiplication: multiply two numbers (a * b)
  * - division: divide the first number by the second (a / b), throws on division by zero
+ * - modulo: remainder of the first number divided by the second (a % b), throws on modulo by zero
+ * - power: raise the base to the exponent (base ^ exponent)
+ * - squareRoot: square root of a number, throws for negative numbers
  *
  * Usage: node src/calculator.js <operation> <a> <b>
  * Example: node src/calculator.js add 2 3
@@ -35,6 +38,27 @@ function division(a, b) {
   return a / b;
 }
 
+// modulo: returns the remainder of a divided by b
+function modulo(a, b) {
+  if (b === 0) {
+    throw new Error('Modulo by zero is not allowed');
+  }
+  return a % b;
+}
+
+// power: returns base raised to the exponent
+function power(base, exponent) {
+  return base ** exponent;
+}
+
+// squareRoot: returns the square root of n
+function squareRoot(n) {
+  if (n < 0) {
+    throw new Error('Square root of a negative number is not allowed');
+  }
+  return Math.sqrt(n);
+}
+
 const operations = {
   add: addition,
   addition,
@@ -49,6 +73,14 @@ const operations = {
   divide: division,
   division,
   '/': division,
+  mod: modulo,
+  modulo,
+  '%': modulo,
+  pow: power,
+  power,
+  '^': power,
+  sqrt: squareRoot,
+  squareRoot,
 };
 
 function calculate(operation, ...values) {
@@ -86,4 +118,4 @@ if (require.main === module) {
   process.exitCode = main(process.argv.slice(2));
 }
 
-module.exports = { addition, subtraction, multiplication, division, calculate };
+module.exports = { addition, subtraction, multiplication, division, modulo, power, squareRoot, calculate };
